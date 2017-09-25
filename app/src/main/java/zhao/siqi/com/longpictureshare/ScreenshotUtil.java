@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ public class ScreenshotUtil {
                 h += scrollView.getChildAt(i).getHeight();
 
                 // 设置背景底色
-                int background = scrollView.getChildAt(i).getDrawingCacheBackgroundColor();
-                scrollView.getChildAt(i).setBackgroundColor(background);
+               /* int background = scrollView.getChildAt(i).getDrawingCacheBackgroundColor();
+                scrollView.getChildAt(i).setBackgroundColor(background);*/
             }
 
             // 创建对应大小的bitmap
@@ -56,6 +57,7 @@ public class ScreenshotUtil {
             bitmaps.add(bitmap);
         }
 
+        // 拼接头部  尾部   暂时用不到
      /*   Bitmap head = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.share_term_table_header);
         Bitmap foot = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.share_term_table_footer);*/
 
@@ -64,30 +66,7 @@ public class ScreenshotUtil {
 
         saveImageToGallery(context, v);
 
-       /* File savedir = new File(FILE_SAVEPATH);
-        if (!savedir.exists()) {
-            savedir.mkdirs();
-        }
-
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(pathfile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(mContext, "保存失败", Toast.LENGTH_SHORT).show();
-        }
-        try {
-            if (null != out) {
-                v.compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.flush();
-                out.close();
-            }
-            Toast.makeText(mContext, "保存成功", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(mContext, "保存失败", Toast.LENGTH_SHORT).show();
-        }
-*/
-
+        // savePhoto(mContext, v);
     }
 
     /**
@@ -114,38 +93,40 @@ public class ScreenshotUtil {
             }
         }
 
+        // 获取图片的宽高
         int headWidth = first.getWidth();
-        int kebianwidth = second.getWidth();
-        int fotwid = third.getWidth();
+        int secondWidth = second.getWidth();
+        int lastWidth = third.getWidth();
 
         int headHeight = first.getHeight();
-        int kebiaoheight = second.getHeight();
-        int footerheight = third.getHeight();
+        int secondHeight = second.getHeight();
+        int lastHeight = third.getHeight();
 
         //生成三个图片合并大小的Bitmap
-        Bitmap newbmp = Bitmap.createBitmap(kebianwidth, headHeight + kebiaoheight + footerheight, Bitmap.Config.ARGB_8888);
-        Canvas cv = new Canvas(newbmp);
+        Bitmap newBmp = Bitmap.createBitmap(secondWidth, headHeight + secondHeight + lastHeight, Bitmap.Config.ARGB_8888);
+        Canvas cv = new Canvas(newBmp);
         cv.drawBitmap(first, 0, 0, null);// 在 0，0坐标开始画入headBitmap
 
         //因为手机不同图片的大小的可能小了 就绘制白色的界面填充剩下的界面
-        if (headWidth < kebianwidth) {
+        if (headWidth < secondWidth) {
             System.out.println("绘制头");
-            Bitmap ne = Bitmap.createBitmap(kebianwidth - headWidth, headHeight, Bitmap.Config.ARGB_8888);
+
+            Bitmap ne = Bitmap.createBitmap(secondWidth - headWidth, headHeight, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(ne);
             canvas.drawColor(Color.WHITE);
             cv.drawBitmap(ne, headWidth, 0, null);
         }
 
-        cv.drawBitmap(second, 0, headHeight, null);// 在 0，headHeight坐标开始填充课表的Bitmap
-        cv.drawBitmap(third, 0, headHeight + kebiaoheight, null);// 在 0，headHeight + kebiaoheight坐标开始填充课表的Bitmap
+        cv.drawBitmap(second, 0, headHeight, null);// 在 0，headHeight坐标开始填充第二张Bitmap
+        cv.drawBitmap(third, 0, headHeight + secondHeight, null);// 在 0，headHeight + secondHeight 坐标开始第三张图片
 
         //因为手机不同图片的大小的可能小了 就绘制白色的界面填充剩下的界面
-        if (fotwid < kebianwidth) {
+        if (lastWidth < secondWidth) {
             System.out.println("绘制");
-            Bitmap ne = Bitmap.createBitmap(kebianwidth - fotwid, footerheight, Bitmap.Config.ARGB_8888);
+            Bitmap ne = Bitmap.createBitmap(secondWidth - lastWidth, lastHeight, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(ne);
             canvas.drawColor(Color.WHITE);
-            cv.drawBitmap(ne, fotwid, headHeight + kebiaoheight, null);
+            cv.drawBitmap(ne, lastWidth, headHeight + secondHeight, null);
         }
 
         cv.save(Canvas.ALL_SAVE_FLAG);// 保存
@@ -156,24 +137,28 @@ public class ScreenshotUtil {
         second.recycle();
         third.recycle();
 
-        return newbmp;
+        return newBmp;
     }
 
-
-    //保存文件到指定路径
+    /**
+     * 保存文件到指定路径
+     *
+     * @param context
+     * @param bmp
+     * @return
+     */
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
 
         // 首先保存图片
         String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "medbanks";
         File appDir = new File(storePath);
+
         if (!appDir.exists()) {
             appDir.mkdir();
         }
 
         String fileName = System.currentTimeMillis() + ".jpg";
         File file = new File(appDir, fileName);
-
-        // 7.0权限适配
 
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -191,11 +176,9 @@ public class ScreenshotUtil {
 
             if (isSuccess) {
                 Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
-
                 return true;
             } else {
                 Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
-
                 return false;
             }
 
@@ -204,6 +187,39 @@ public class ScreenshotUtil {
         }
 
         return false;
+    }
+
+    /**
+     * 保存图片
+     *
+     * @param mContext
+     * @param v
+     */
+    private static void savePhoto(Context mContext, Bitmap v) {
+        File savedir = new File(FILE_SAVEPATH);
+        if (!savedir.exists()) {
+            savedir.mkdirs();
+        }
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(pathfile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(mContext, "保存失败", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            if (null != out) {
+                v.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+                out.close();
+            }
+
+            Toast.makeText(mContext, "保存成功", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(mContext, "保存失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
