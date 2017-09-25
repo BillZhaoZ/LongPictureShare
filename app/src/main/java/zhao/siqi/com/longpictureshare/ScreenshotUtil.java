@@ -10,15 +10,13 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 /**
- * 截图操作
+ * 截图操作（生成图片  拼接图片   保存图片）
  * Created by Bill on 2017/9/22.
  */
 class ScreenshotUtil {
 
     private final static String FILE_SAVEPATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     public static String pathfile = FILE_SAVEPATH + "/ScreenshotUtil.png";
-    private static int h = 0;
-    private static Context context;
 
     /**
      * 因为课表是可以滑动 的所以截取
@@ -26,12 +24,11 @@ class ScreenshotUtil {
      **/
     public static void getBitmapByView(Context mContext, ArrayList<LinearLayout> listView) {
 
-        context = mContext;
         ArrayList<Bitmap> bitmaps = new ArrayList<>(); // 保存图片
 
         for (LinearLayout scrollView : listView) {
             // 获取listView实际高度
-            h = 0;
+            int h = 0;
 
             for (int i = 0; i < scrollView.getChildCount(); i++) {
                 h += scrollView.getChildAt(i).getHeight();
@@ -57,15 +54,15 @@ class ScreenshotUtil {
         Bitmap v = toConformBitmap(bitmaps);
 
         // 保存图片到本地
-        Utils.saveImageToGallery(context, v);
+        Utils.saveImageToGallery(mContext, v);
 
-        // Utils.savePhoto(context, v, pathfile);
+        // Utils.savePhoto(mContext, v, pathfile);
     }
 
     /**
      * 合并图片
      */
-    private static Bitmap toConformBitmap(ArrayList<Bitmap> bitmaps   /*Bitmap head, Bitmap kebiao, Bitmap san*/) {
+    private static Bitmap toConformBitmap(ArrayList<Bitmap> bitmaps) {
         if (bitmaps == null) {
             return null;
         }
