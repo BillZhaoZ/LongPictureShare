@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * 第三页
@@ -20,6 +21,7 @@ public class ThirdActivity extends AppCompatActivity {
         LinearLayout view3 = (LinearLayout) findViewById(R.id.cl3);
         Utils.addView(view3);
 
+        // 设置
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Title");
         toolbar.setSubtitle("SubTitle");
@@ -55,6 +57,9 @@ public class ThirdActivity extends AppCompatActivity {
             // 截图
             ScreenshotUtil.getBitmapByView(this, Utils.getView());
             return true;
+        } else if (id == R.id.action_share || id == R.id.action_collection) {
+            Toast.makeText(getBaseContext(), "还没做呢，别点了，OK！！！", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         return super.onOptionsItemSelected(item);
