@@ -34,17 +34,18 @@ public class ScreenshotUtil {
     public static void getBitmapByView(Context mContext, ArrayList<LinearLayout> listView) {
 
         context = mContext;
-
-        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+        ArrayList<Bitmap> bitmaps = new ArrayList<>(); // 保存图片
 
         for (LinearLayout scrollView : listView) {
-
             // 获取listView实际高度
             h = 0;
 
             for (int i = 0; i < scrollView.getChildCount(); i++) {
                 h += scrollView.getChildAt(i).getHeight();
-                scrollView.getChildAt(i).setBackgroundResource(android.R.color.white);
+
+                // 设置背景底色
+                int background = scrollView.getChildAt(i).getDrawingCacheBackgroundColor();
+                scrollView.getChildAt(i).setBackgroundColor(background);
             }
 
             // 创建对应大小的bitmap
@@ -93,41 +94,38 @@ public class ScreenshotUtil {
      * 合并图片
      */
     public static Bitmap toConformBitmap(ArrayList<Bitmap> bitmaps   /*Bitmap head, Bitmap kebiao, Bitmap san*/) {
-       /* if (head == null) {
+        if (bitmaps == null) {
             return null;
-        }*/
+        }
 
-        Bitmap head = null;
-        Bitmap kebiao = null;
-        Bitmap san = null;
+        Bitmap first = null;
+        Bitmap second = null;
+        Bitmap third = null;
 
         for (int i = 0; i < bitmaps.size(); i++) {
-
             Bitmap bitmap = bitmaps.get(i);
 
             if (i == 0) {
-                head = bitmap;
+                first = bitmap;
             } else if (i == 1) {
-                kebiao = bitmap;
-
+                second = bitmap;
             } else {
-                san = bitmap;
+                third = bitmap;
             }
         }
 
+        int headWidth = first.getWidth();
+        int kebianwidth = second.getWidth();
+        int fotwid = third.getWidth();
 
-        int headWidth = head.getWidth();
-        int kebianwidth = kebiao.getWidth();
-        int fotwid = san.getWidth();
-
-        int headHeight = head.getHeight();
-        int kebiaoheight = kebiao.getHeight();
-        int footerheight = san.getHeight();
+        int headHeight = first.getHeight();
+        int kebiaoheight = second.getHeight();
+        int footerheight = third.getHeight();
 
         //生成三个图片合并大小的Bitmap
         Bitmap newbmp = Bitmap.createBitmap(kebianwidth, headHeight + kebiaoheight + footerheight, Bitmap.Config.ARGB_8888);
         Canvas cv = new Canvas(newbmp);
-        cv.drawBitmap(head, 0, 0, null);// 在 0，0坐标开始画入headBitmap
+        cv.drawBitmap(first, 0, 0, null);// 在 0，0坐标开始画入headBitmap
 
         //因为手机不同图片的大小的可能小了 就绘制白色的界面填充剩下的界面
         if (headWidth < kebianwidth) {
@@ -138,8 +136,8 @@ public class ScreenshotUtil {
             cv.drawBitmap(ne, headWidth, 0, null);
         }
 
-        cv.drawBitmap(kebiao, 0, headHeight, null);// 在 0，headHeight坐标开始填充课表的Bitmap
-        cv.drawBitmap(san, 0, headHeight + kebiaoheight, null);// 在 0，headHeight + kebiaoheight坐标开始填充课表的Bitmap
+        cv.drawBitmap(second, 0, headHeight, null);// 在 0，headHeight坐标开始填充课表的Bitmap
+        cv.drawBitmap(third, 0, headHeight + kebiaoheight, null);// 在 0，headHeight + kebiaoheight坐标开始填充课表的Bitmap
 
         //因为手机不同图片的大小的可能小了 就绘制白色的界面填充剩下的界面
         if (fotwid < kebianwidth) {
@@ -154,9 +152,9 @@ public class ScreenshotUtil {
         cv.restore();// 存储
 
         //回收
-        head.recycle();
-        kebiao.recycle();
-        san.recycle();
+        first.recycle();
+        second.recycle();
+        third.recycle();
 
         return newbmp;
     }
