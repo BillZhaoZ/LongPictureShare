@@ -13,22 +13,24 @@
     <TextView
         android:id="@+id/tv_next"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="我是第一个跳转啊!"
+        android:text="我是第一个跳转啊!点我"
         android:textColor="@android:color/white"/>
-
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:src="@mipmap/ic_launcher_round"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="全方面；亲密付；群里面服务!"/>
+        android:text="我是第一页的最底部"/>
 
 </LinearLayout>

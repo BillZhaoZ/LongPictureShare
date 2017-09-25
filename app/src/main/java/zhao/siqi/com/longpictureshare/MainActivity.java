@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * 第一页
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

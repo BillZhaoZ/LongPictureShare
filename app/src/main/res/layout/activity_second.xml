@@ -33,7 +33,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
-        android:text="全方面；来看你我疯了可能违法；我卡了法兰球阀领取福利暖气费；群里面服务!"/>
+        android:text="全方面；来看你我疯了可；群里面服务!"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -44,5 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher_round"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="我是第二张图片的底部啊，哈哈哈"/>
 
 </LinearLayout>
