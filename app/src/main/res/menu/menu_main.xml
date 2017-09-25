@@ -22,23 +22,23 @@
         android:title="收藏"
         app:showAsAction="never"/>
 
-    <!-- &lt;!&ndash; 子菜单 &ndash;&gt;
-     <item
-         android:id="@+id/setting"
-         android:title="setting">
-         <menu>
-             <item
-                 android:id="@+id/setting1"
-                 android:orderInCategory="300"
-                 android:title="声音设置"
-                 app:showAsAction="never"/>
+    <!-- 子菜单 -->
+    <item
+        android:id="@+id/setting"
+        android:title="设置">
+        <menu>
+            <item
+                android:id="@+id/setting1"
+                android:orderInCategory="300"
+                android:title="声音设置"
+                app:showAsAction="never"/>
 
-             <item
-                 android:id="@+id/setting2"
-                 android:orderInCategory="400"
-                 android:title="背景设置"
-                 app:showAsAction="never"/>
-         </menu>
-     </item>-->
+            <item
+                android:id="@+id/setting2"
+                android:orderInCategory="400"
+                android:title="背景设置"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
 
 </menu>
