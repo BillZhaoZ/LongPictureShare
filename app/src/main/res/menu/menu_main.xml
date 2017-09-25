@@ -6,7 +6,40 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="生成长图,点我吧"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="生成长图"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="100"
+        android:title="分享"
+        app:showAsAction="never|withText"/>
+
+    <item
+        android:id="@+id/action_collection"
+        android:orderInCategory="100"
+        android:title="收藏"
         app:showAsAction="never"/>
+
+    <!-- &lt;!&ndash; 子菜单 &ndash;&gt;
+     <item
+         android:id="@+id/setting"
+         android:title="setting">
+         <menu>
+             <item
+                 android:id="@+id/setting1"
+                 android:orderInCategory="300"
+                 android:title="声音设置"
+                 app:showAsAction="never"/>
+
+             <item
+                 android:id="@+id/setting2"
+                 android:orderInCategory="400"
+                 android:title="背景设置"
+                 app:showAsAction="never"/>
+         </menu>
+     </item>-->
 
 </menu>
