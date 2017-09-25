@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * 第二页
+ */
 public class SecondActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +18,6 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         final LinearLayout viewById2 = (LinearLayout) findViewById(R.id.cl2);
-
         TextView nextClick = (TextView) findViewById(R.id.tv_next);
 
         nextClick.setOnClickListener(new View.OnClickListener() {
