@@ -24,7 +24,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Utils.addView(viewById2);
+                PicUtils.addView(viewById2);
 
                 Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
                 startActivity(intent);

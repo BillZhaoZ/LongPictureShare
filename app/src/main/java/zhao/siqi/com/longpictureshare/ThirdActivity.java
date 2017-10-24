@@ -19,7 +19,7 @@ public class ThirdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_third);
 
         LinearLayout view3 = (LinearLayout) findViewById(R.id.cl3);
-        Utils.addView(view3);
+        PicUtils.addView(view3);
 
         // 设置
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,7 +55,7 @@ public class ThirdActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             // 截图
-            ScreenshotUtil.getBitmapByView(this, Utils.getView());
+            ScreenshotUtil.getBitmapByView(this, PicUtils.getView());
             return true;
         } else if (id == R.id.action_share || id == R.id.action_collection) {
             Toast.makeText(getBaseContext(), "还没做呢，别点了，OK！！！", Toast.LENGTH_SHORT).show();

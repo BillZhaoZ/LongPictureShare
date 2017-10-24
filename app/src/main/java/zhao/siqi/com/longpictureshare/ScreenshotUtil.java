@@ -54,9 +54,9 @@ class ScreenshotUtil {
         Bitmap v = toConformBitmap(bitmaps);
 
         // 保存图片到本地
-        Utils.saveImageToGallery(mContext, v);
+        PicUtils.saveImageToGallery(mContext, v);
 
-        // Utils.savePhoto(mContext, v, pathfile);
+        // PicUtils.savePhoto(mContext, v, pathfile);
     }
 
     /**

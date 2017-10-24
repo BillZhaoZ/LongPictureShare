@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * 工具类
  * Created by Bill on 2017/9/22.
  */
-class Utils {
+class PicUtils {
 
     private static ArrayList<LinearLayout> mViewArrayList = new ArrayList<>();
 
